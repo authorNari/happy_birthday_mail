@@ -1,0 +1,51 @@
+%form.post{:method => "POST", :action => '/friends'}
+  %table
+    %tr
+      %td Name
+      %td
+        %input{:type => "text", :name => "friend[name]"}
+    %tr
+      %td Mail Address
+      %td
+        %input{:type => "text", :name => "friend[mail_address]"}
+    %tr
+      %td Birthday(19XX-XX-XX)
+      %td
+        %input{:type => "text", :name => "friend[birthday]"}
+    %tr
+      %td Subject
+      %td
+        %input{:type => "text", :name => "friend[subject]"}
+    %tr
+      %td Message
+      %td
+        %textarea{:name => "friend[message]", :cols => 60, :rows => 8}
+    %tr
+      %td
+      %td
+        %input{:type => "submit", :value => "Create"}
+
+%h2 Friends 
+- @friends.each do |friend|
+  .friend
+    .info
+      %span.name== #{h friend.name}
+      %span.mail_address== : #{h friend.mail_address}
+      %span.birthday== (#{h friend.birthday})
+
+    .info== #{h friend.subject}
+
+    .message
+      %pre
+        = friend.message
+
+    .buttons
+      %table
+        %tr
+          %td
+            %input{:type => "button", :value => "Edit", :onclick => "location.href='/friends/edit/#{friend.id}'"}
+          %td
+            %form{:method => "POST", :action => "/friends/#{friend.id}"}
+              %input{:type => "hidden", :name => "_method", :value => "DELETE"}
+              %input{:type => "submit", :value => "Destroy"}
+

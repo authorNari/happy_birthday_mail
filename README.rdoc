@@ -1,0 +1,21 @@
+= Happy Birthday Mail
+
+== Description
+
+Happy Birthday! mail send to friend at birthday.
+
+== 概要
+
+誕生日おめでとうメールを友達に送る物です．
+
+たまに送ると割と喜ばれたりするので，機械的に送ってしまえばずっと喜ばれ
+るわけですからいいなぁと思ったりするわけです．
+
+== require library
+
+  gem install sinatra haml sequel sqlite3-ruby
+
+== 使い方
+
+適当なWebアプリを作って誕生日を管理．
+あとはメールを送るrubyスクリプトをanacronとかに登録してもらう予定．

@@ -1,0 +1,29 @@
+%form.post{:method => "POST", :action => "/friends/#{params[:id]}"}
+  %input{:type => "hidden", :name => "_method", :value => "PUT"}
+  %table
+    %tr
+      %td Name
+      %td
+        %input{:type => "text", :name => "friend[name]", :value => @friend.name}
+    %tr
+      %td Mail Address
+      %td
+        %input{:type => "text", :name => "friend[mail_address]", :value => @friend.mail_address}
+    %tr
+      %td Birthday(19XX-XX-XX)
+      %td
+        %input{:type => "text", :name => "friend[birthday]", :value => @friend.birthday}
+    %tr
+      %td Subject
+      %td
+        %input{:type => "text", :name => "friend[subject]"}
+    %tr
+      %td Message
+      %td
+        %textarea{:name => "friend[message]", :cols => 60, :rows => 8}
+          = @friend.message
+    %tr
+      %td
+        %a{:href => "/friends"}
+          Back
+        %input{:type => "submit", :value => "Update"}
