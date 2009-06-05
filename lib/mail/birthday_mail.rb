@@ -1,26 +1,36 @@
+require "rubygems"
+require "tlsmail"
 require 'net/smtp'
 require 'kconv'
 require 'yaml'
+require 'time'
 
-# 設定ファイルから情報取得
-config = YAML.load(IO.read(File.join(File.dirname(__FILE__), "mail.yml")))
+def sendgmail(to, subject, body)
+  # 設定ファイルから情報取得
+  config = YAML.load(IO.read(File.join(File.dirname(__FILE__), "mail.yml")))
 
-# Mail送信 （日本語対応）
-t = Time.now
-mailaddr_from = config[:from_address]
-mail_from     = config[:from]
-mailaddr_to   = config[:to_address]
-mail_to       = config[:to]
-# subject       = "テストメール"
-# messages      = "これはテストメールです"
-# mailmes = String.new
-# mailmes << sprintf("From: %s <%s>\n", Kconv.tojis(mail_from),mailaddr_from)
-# mailmes << sprintf("To: %s <%s>\n", Kconv.tojis(mail_to),mailaddr_to)
-# mailmes << sprintf("Subject: %s\n", Kconv.tojis(subject))
-# mailmes << sprintf("Date: %s\n",t.rfc822)
-# mailmes << sprintf("Message-Id: <%s>\n",mail)
-# mailmes << messages
+  body = <<EOT
+From: #{config["from_address"]}
+To: #{to.to_a.join(",\n ")}
+Subject: #{NKF.nkf("-WMm0", subject)}
+Date: #{Time::now.strftime("%a, %d %b %Y %X %z")}
+Mime-Version: 1.0
+Content-Type: text/plain; charset=ISO-2022-JP
+Content-Transfer-Encoding: 7bit
+ 
+#{NKF.nkf("-Wjm0", body)}
+EOT
 
-# Net::SMTP.start( 'mailserver', 25 ) {|smtp|
-#   smtp.send_mail mailmes, mailaddr_from, mailaddr_to
-# }
+  smtp_conf = config["smtp"]
+  Net::SMTP.enable_tls(OpenSSL::SSL::VERIFY_NONE)
+  Net::SMTP.start(smtp_conf["hostname"],
+                  smtp_conf["port"], 
+                  smtp_conf["domain"],
+                  smtp_conf["account"], 
+                  smtp_conf["password"],
+                  smtp_conf["format"]) do |smtp|
+    smtp.send_mail body, config["from_address"], to
+  end
+end
+
+sendgmail("narihiro@netlab.jp", "Hi!", "テストテスト")

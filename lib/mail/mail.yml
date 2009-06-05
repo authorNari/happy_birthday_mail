@@ -1,4 +1,9 @@
-from_address: from@mail.from
-from: 送信元名
-to_address: to@mail.to
-to: 受信者名
+from_address: xxx@xxx.xx
+from: MyName
+smtp:
+  hostname: smtp.gmail.com
+  port: 587
+  domain: localhost.localdomain
+  account: xxxxxx@gmail.com
+  password: 
+  format: plain
