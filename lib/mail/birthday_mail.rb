@@ -45,6 +45,7 @@ def birthday_mail
     @logger.info "sendmail to #{friend.name}, address #{friend.mail_address}"
     sendgmail(friend.mail_address, friend.subject, friend.message)
   end
+  @logger.info "invoke"
 end
 
 birthday_mail
