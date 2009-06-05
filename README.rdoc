@@ -17,6 +17,12 @@ Happy Birthday! mail send to friend at birthday.
 
 == 使い方
 
+まず，次の設定ファイルを自分用に修正してください．
+
+  lib/mail/mail.yml
+
+その後は，
+
   ruby server.rb
 
 このコマンドを叩けば，友人の誕生日を管理するWEBアプリが立ち上がります．
