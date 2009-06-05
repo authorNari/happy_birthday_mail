@@ -13,9 +13,37 @@ Happy Birthday! mail send to friend at birthday.
 
 == require library
 
-  gem install sinatra haml sequel sqlite3-ruby
+  gem install sinatra haml sequel sqlite3-ruby tlsmail
 
 == 使い方
 
-適当なWebアプリを作って誕生日を管理．
-あとはメールを送るrubyスクリプトをanacronとかに登録してもらう予定．
+  ruby server.rb
+
+このコマンドを叩けば，友人の誕生日を管理するWEBアプリが立ち上がります．
+好きなだけ友人を登録すればいいですよ．
+
+  bin/happy_birthday_mail
+
+このコマンドを叩けば，今日，誕生日の友人にお祝いメッセージを送りますよ．
+めでたいですね．
+
+毎日コマンドを叩くのはやってられないので，通常は cron か anacron に以下
+のコマンドを登録しておきましょう．
+
+  crontab -e
+
+もしくは
+
+  /etc/anacrontab
+
+を編集しましょう．
+
+設定例
+
+  #cron
+  # m h  dom mon dow   command
+  0 10 * * * ~/apps/happy_birthday_mail/bin/happy_birthday_mail
+
+
+  #anacron
+  1 60 cron.birthday.daily ~/apps/happy_birthday_mail/bin/happy_birthday_mail

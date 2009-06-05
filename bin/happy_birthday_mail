@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+cmd = ["cd #{File.join(File.dirname(__FILE__), "../")}",
+       "ruby lib/mail/birthday_mail.rb"]
+puts cmd.join(";")
+system(cmd.join(";"))
