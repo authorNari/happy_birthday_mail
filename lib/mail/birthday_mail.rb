@@ -10,7 +10,7 @@ def sendgmail(to, subject, body)
   config = YAML.load(IO.read(File.join(File.dirname(__FILE__), "mail.yml")))
 
   body = <<EOT
-From: #{config["from_address"]}
+From: #{config["from"]} <#{config["from_address"]}>
 To: #{to.to_a.join(",\n ")}
 Subject: #{NKF.nkf("-WMm0", subject)}
 Date: #{Time::now.strftime("%a, %d %b %Y %X %z")}
