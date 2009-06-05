@@ -33,12 +33,18 @@ EOT
   end
 end
 
+require 'logger'
+@logger = Logger.new(File.join(File.dirname(__FILE__), "../../sendmail.log"))
+
 $: << File.join(File.dirname(__FILE__), "../../")
 require "models/friends"
 
 def birthday_mail
   today = Date.today
   Friends.where(:birthmonth => today.month, :birthday => today.day).each do |friend|
+    @logger.info "sendmail to #{friend.name}, address #{friend.mail_address}"
     sendgmail(friend.mail_address, friend.subject, friend.message)
   end
 end
+
+birthday_mail
