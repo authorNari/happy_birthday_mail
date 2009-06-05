@@ -33,4 +33,12 @@ EOT
   end
 end
 
-sendgmail("narihiro@netlab.jp", "Hi!", "テストテスト")
+$: << File.join(File.dirname(__FILE__), "../../")
+require "models/friends"
+
+def birthday_mail
+  today = Date.today
+  Friends.where(:birthmonth => today.month, :birthday => today.day).each do |friend|
+    sendgmail(friend.mail_address, friend.subject, friend.message)
+  end
+end

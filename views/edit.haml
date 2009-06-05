@@ -10,9 +10,11 @@
       %td
         %input{:type => "text", :name => "friend[mail_address]", :value => @friend.mail_address}
     %tr
-      %td Birthday(19XX-XX-XX)
+      %td Birthday(XX-XX)
       %td
-        %input{:type => "text", :name => "friend[birthday]", :value => @friend.birthday}
+        %input{:type => "text", :name => "friend[birthmonth]", :value => @friend.birthmonth, :size => 2}
+        -
+        %input{:type => "text", :name => "friend[birthday]", :value => @friend.birthday, :size => 2}
     %tr
       %td Subject
       %td

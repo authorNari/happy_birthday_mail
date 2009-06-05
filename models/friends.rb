@@ -11,7 +11,8 @@ class Friends < Sequel::Model
       string :mail_address
       string :subject
       text :message
-      date :birthday
+      integer :birthmonth
+      integer :birthday
       timestamp :updated_at
       timestamp :created_at
     end
